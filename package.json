@@ -1,0 +1,36 @@
+{
+  "name": "mockgoose",
+  "version": "0.0.1",
+  "description": "A mock of the Mongoose API",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "mongoose": "^9.0.0",
+    "typescript": "^6.0.0"
+  },
+  "peerDependencies": {
+    "mongoose": ">=6"
+  },
+  "peerDependenciesMeta": {
+    "mongoose": {
+      "optional": true
+    }
+  }
+}
