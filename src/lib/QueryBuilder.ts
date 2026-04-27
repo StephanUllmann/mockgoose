@@ -1,4 +1,4 @@
-import type { Schema } from 'mongoose';
+// eslint-disable-next-line unicorn/no-thenable
 import util from 'util';
 
 type ExecuteCallback = () => void | Promise<void>;
@@ -17,7 +17,7 @@ export default class QueryBuilder {
   ) {}
 
   populate(path: string) {
-    const [field, query] = path.split(' ');
+    const [field, _query] = path.split(' ');
 
     const modelName = this.schema.definition?.[field]?.ref;
 

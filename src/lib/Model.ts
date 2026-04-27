@@ -1,5 +1,5 @@
 import { DBState } from '../types/index.js';
-import { ObjectId, Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 import { generateObjectId, isValidMockObjectId } from './utils/mockObjectId.js';
 import QueryBuilder from './QueryBuilder.js';
 import Document from './Document.js';
@@ -99,7 +99,7 @@ export default class Model<TSchema extends Schema> {
       : this._createQueryBuilder(found, onExecute);
   }
 
-  findByIdAndDelete(id: string, options?: Record<string, any>) {
+  findByIdAndDelete(id: string, _options?: Record<string, any>) {
     if (!isValidMockObjectId(id))
       throw new Error('CastError: Invalid ObjectId');
     const found = this._collection[id];
@@ -112,7 +112,7 @@ export default class Model<TSchema extends Schema> {
     return this._createQueryBuilder(found, onExecute);
   }
 
-  findOneAndDelete(query: Record<string, any>, options?: Record<string, any>) {
+  findOneAndDelete(query: Record<string, any>, _options?: Record<string, any>) {
     const found = this._findOneByQuery(query);
     const onExecute = async () => {
       if (found) {

@@ -1,5 +1,5 @@
 {
-  "name": "mockgoose",
+  "name": "@StephanUllmann/mockgoose",
   "version": "0.0.1",
   "description": "A mock of the Mongoose API",
   "type": "module",

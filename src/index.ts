@@ -15,6 +15,7 @@ async function connect(
   uri: string,
   options?: mongoose.ConnectOptions | undefined
 ): Promise<mongoose.Mongoose> {
+  if (!uri) throw new Error('Mockgoose Error: Missing connection sting');
   try {
     await access(dirpath);
 
@@ -31,7 +32,9 @@ async function connect(
     dbState = {};
   }
 
-  return { connection: { name: 'Mock DB' } } as mongoose.Mongoose;
+  return {
+    connection: { name: `${options?.dbName || ''} Mock DB` },
+  } as mongoose.Mongoose;
 }
 
 function model(name: string, schema?: any) {
