@@ -37,7 +37,7 @@ export default class Model<TSchema extends Schema> {
     );
   };
 
-  async create(newDoc: InferSchemaType<TSchema>) {
+  async create(newDoc: InferSchemaType<TSchema>): Promise<Document> {
     const _id = generateObjectId();
     const toSave = { _id, ...newDoc };
     this._collection[_id] = toSave;
@@ -45,25 +45,29 @@ export default class Model<TSchema extends Schema> {
     return this._createDocument(toSave);
   }
 
-  findById(id: string) {
+  findById(id: string): QueryBuilder {
     if (!isValidMockObjectId(id))
       throw new Error('CastError: Invalid ObjectId');
     const docData = this._collection[id] || null;
     return this._createQueryBuilder(docData);
   }
 
-  find(query?: Record<string, any>) {
+  find(query?: Record<string, any>): QueryBuilder {
     if (!query) return this._createQueryBuilder(this._collection);
     const found = this._findAllByQuery(query);
     return this._createQueryBuilder(found);
   }
 
-  findOne(query: Record<string, any>) {
+  findOne(query: Record<string, any>): QueryBuilder {
     const found = this._findOneByQuery(query);
     return this._createQueryBuilder(found);
   }
 
-  findByIdAndUpdate(id: string, data: any, options?: Record<string, any>) {
+  findByIdAndUpdate(
+    id: string,
+    data: any,
+    options?: Record<string, any>
+  ): QueryBuilder {
     if (!isValidMockObjectId(id))
       throw new Error('CastError: Invalid ObjectId');
     const found = this._collection[id];
@@ -84,7 +88,7 @@ export default class Model<TSchema extends Schema> {
     query: Record<string, any>,
     data: any,
     options?: Record<string, any>
-  ) {
+  ): QueryBuilder {
     const found = this._findOneByQuery(query);
     if (!found) return this._createQueryBuilder(null);
     const updated = { ...found, ...data };
@@ -99,7 +103,7 @@ export default class Model<TSchema extends Schema> {
       : this._createQueryBuilder(found, onExecute);
   }
 
-  findByIdAndDelete(id: string, _options?: Record<string, any>) {
+  findByIdAndDelete(id: string, _options?: Record<string, any>): QueryBuilder {
     if (!isValidMockObjectId(id))
       throw new Error('CastError: Invalid ObjectId');
     const found = this._collection[id];
@@ -112,7 +116,10 @@ export default class Model<TSchema extends Schema> {
     return this._createQueryBuilder(found, onExecute);
   }
 
-  findOneAndDelete(query: Record<string, any>, _options?: Record<string, any>) {
+  findOneAndDelete(
+    query: Record<string, any>,
+    _options?: Record<string, any>
+  ): QueryBuilder {
     const found = this._findOneByQuery(query);
     const onExecute = async () => {
       if (found) {

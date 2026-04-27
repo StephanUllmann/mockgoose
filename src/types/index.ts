@@ -1,6 +1,6 @@
 import type mongoose from 'mongoose';
 
-export interface TauntModel extends Partial<
+export interface MockgooseModel extends Partial<
   mongoose.Model<any, unknown, unknown, unknown, any, any, unknown>
 > {}
 

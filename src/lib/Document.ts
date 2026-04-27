@@ -27,16 +27,16 @@ export default class Document {
     });
   }
 
-  async save() {
+  async save(): Promise<this> {
     await this._sync();
     return this;
   }
 
-  toJSON() {
+  toJSON(): Record<string, any> {
     return this._data;
   }
 
-  [util.inspect.custom]() {
+  [util.inspect.custom](): string {
     return JSON.stringify(this._data, null, 2);
   }
 }

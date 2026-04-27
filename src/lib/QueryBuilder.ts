@@ -16,7 +16,7 @@ export default class QueryBuilder {
     private onExecute?: ExecuteCallback
   ) {}
 
-  populate(path: string) {
+  populate(path: string): this {
     const [field, _query] = path.split(' ');
 
     const modelName = this.schema.definition?.[field]?.ref;
@@ -48,17 +48,17 @@ export default class QueryBuilder {
     return this;
   }
 
-  lean() {
+  lean(): this {
     this._isLean = true;
     return this;
   }
 
-  skip(val: number) {
+  skip(val: number): this {
     this._skip = val;
     return this;
   }
 
-  limit(val: number) {
+  limit(val: number): this {
     this._limit = val;
     return this;
   }
@@ -84,7 +84,7 @@ export default class QueryBuilder {
     return result;
   }
 
-  async exec() {
+  async exec(): Promise<Record<string, any> | Record<string, any>[]> {
     if (this.onExecute) {
       await this.onExecute();
     }
@@ -94,7 +94,7 @@ export default class QueryBuilder {
   then(
     onfulfilled?: ((value: any) => any) | null,
     onrejected?: ((reason: any) => any) | null
-  ) {
+  ): Promise<any> {
     const executePromise = this.onExecute
       ? Promise.resolve(this.onExecute())
       : Promise.resolve();
@@ -104,7 +104,7 @@ export default class QueryBuilder {
       .then(onfulfilled, onrejected);
   }
 
-  [util.inspect.custom]() {
+  [util.inspect.custom](): string {
     return JSON.stringify(this._getResolvedData(), null, 2);
   }
 }

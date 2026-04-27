@@ -1,6 +1,6 @@
 import { access, mkdir, readFile, readdir } from 'fs/promises';
 import type mongoose from 'mongoose';
-import { DBState } from './types/index.js';
+import { DBState, MockgooseModel } from './types/index.js';
 import Model from './lib/Model.js';
 import Schema from './lib/Schema.js';
 import path from 'path';
@@ -37,7 +37,7 @@ async function connect(
   } as mongoose.Mongoose;
 }
 
-function model(name: string, schema?: any) {
+function model(name: string, schema?: any): MockgooseModel {
   let collection: Record<string, any>;
 
   if (name in dbState) {
@@ -53,7 +53,7 @@ function model(name: string, schema?: any) {
 
   return new Model(schema, name, collection, dbState, async () => {
     await syncToDisk(modelFilepath, collection);
-  });
+  }) as unknown as MockgooseModel;
 }
 
 export { connect, Model, model, Schema };

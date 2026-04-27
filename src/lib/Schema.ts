@@ -60,7 +60,9 @@ export default class Schema<
     ? RawDocType
     : Default__v<Require_id<BufferToBinary<FlattenMaps<DocType>>>>,
 > {
-  public static Types = {
+  public static Types: {
+    ObjectId: (str: string) => string;
+  } = {
     ObjectId(str: string) {
       return generateObjectId();
     },
