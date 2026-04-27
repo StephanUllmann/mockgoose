@@ -1,17 +1,10 @@
 {
-  "name": "@ullmann/mockgoose",
-  "version": "0.0.3",
+  "name": "@stephanullmann/mockgoose",
+  "version": "0.0.1",
   "description": "A mock of the Mongoose API",
-  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
   "files": [
     "dist"
   ],
@@ -29,9 +22,8 @@
   "peerDependencies": {
     "mongoose": ">=6"
   },
-  "peerDependenciesMeta": {
-    "mongoose": {
-      "optional": true
-    }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StephanUllmann/mockgoose.git"
   }
 }
