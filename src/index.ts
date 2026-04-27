@@ -24,9 +24,7 @@ async function connect(
     for (const file of files) {
       if (file.endsWith('.json')) {
         const modelName = path.basename(file, '.json');
-        console.log('file', file, modelName);
         const content = await readFile(path.join(dirpath, file), 'utf-8');
-        console.log(content);
         dbState[modelName] = JSON.parse(content);
       }
     }
@@ -50,9 +48,7 @@ function model(name: string, schema?: any): MockgooseModel {
     for (const file of files) {
       if (file.endsWith('.json')) {
         const modelName = path.basename(file, '.json');
-        console.log('file', file, modelName);
         const content = readFileSync(path.join(dirpath, file), 'utf-8');
-        console.log(content);
         dbState[modelName] = JSON.parse(content);
       }
     }
