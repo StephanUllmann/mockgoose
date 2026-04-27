@@ -5,6 +5,7 @@ import Model from './lib/Model.js';
 import Schema from './lib/Schema.js';
 import path from 'path';
 import syncToDisk from './lib/utils/syncToDisk.js';
+import { accessSync, mkdirSync, readdirSync, readFileSync } from 'fs';
 
 let dbState: DBState = {};
 
@@ -23,7 +24,9 @@ async function connect(
     for (const file of files) {
       if (file.endsWith('.json')) {
         const modelName = path.basename(file, '.json');
+        console.log('file', file, modelName);
         const content = await readFile(path.join(dirpath, file), 'utf-8');
+        console.log(content);
         dbState[modelName] = JSON.parse(content);
       }
     }
@@ -39,6 +42,24 @@ async function connect(
 
 function model(name: string, schema?: any): MockgooseModel {
   let collection: Record<string, any>;
+
+  try {
+    accessSync(dirpath);
+
+    const files = readdirSync(dirpath);
+    for (const file of files) {
+      if (file.endsWith('.json')) {
+        const modelName = path.basename(file, '.json');
+        console.log('file', file, modelName);
+        const content = readFileSync(path.join(dirpath, file), 'utf-8');
+        console.log(content);
+        dbState[modelName] = JSON.parse(content);
+      }
+    }
+  } catch {
+    mkdirSync(dirpath, { recursive: true });
+    dbState = {};
+  }
 
   if (name in dbState) {
     collection = dbState[name];
