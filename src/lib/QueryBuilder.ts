@@ -1,6 +1,8 @@
 import type { Schema } from 'mongoose';
 import util from 'util';
 
+type ExecuteCallback = () => void | Promise<void>;
+
 export default class QueryBuilder {
   private _limit?: number;
   private _skip: number = 0;
@@ -10,7 +12,8 @@ export default class QueryBuilder {
     private data: Record<string, any> | Record<string, any>[] | null,
     private schema: any,
     private refs: any,
-    private documentFactory?: (data: Record<string, any>) => any
+    private documentFactory?: (data: Record<string, any>) => any,
+    private onExecute?: ExecuteCallback
   ) {}
 
   populate(path: string) {
@@ -81,18 +84,24 @@ export default class QueryBuilder {
     return result;
   }
 
-  exec() {
-    return Promise.resolve(this._getResolvedData());
+  async exec() {
+    if (this.onExecute) {
+      await this.onExecute();
+    }
+    return this._getResolvedData();
   }
 
   then(
     onfulfilled?: ((value: any) => any) | null,
     onrejected?: ((reason: any) => any) | null
   ) {
-    return Promise.resolve(this._getResolvedData()).then(
-      onfulfilled,
-      onrejected
-    );
+    const executePromise = this.onExecute
+      ? Promise.resolve(this.onExecute())
+      : Promise.resolve();
+
+    return executePromise
+      .then(() => this._getResolvedData())
+      .then(onfulfilled, onrejected);
   }
 
   [util.inspect.custom]() {
