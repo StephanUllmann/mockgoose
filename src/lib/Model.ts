@@ -1,5 +1,5 @@
 import { DBState } from '../types/index.js';
-import { Schema } from 'mongoose';
+import { ObjectId, Schema } from 'mongoose';
 import { generateObjectId, isValidMockObjectId } from './utils/mockObjectId.js';
 import QueryBuilder from './QueryBuilder.js';
 import Document from './Document.js';
@@ -42,29 +42,68 @@ export default class Model<TSchema extends Schema> {
   }
 
   findById(id: string) {
-    if (!isValidMockObjectId(id)) throw new Error('Invalid ObjectId');
+    if (!isValidMockObjectId(id))
+      throw new Error('CastError: Invalid ObjectId');
     const docData = this._collection[id] || null;
     return this._createQueryBuilder(docData);
   }
 
   find(query?: Record<string, any>) {
     if (!query) return this._createQueryBuilder(this._collection);
-    const found = Object.values(this._collection).filter((doc) => {
-      return Object.entries(query).every(([key, condition]) => {
-        return this._evaluateCondition(doc[key], condition);
-      });
-    });
+    const found = this._findAllByQuery(query);
     return this._createQueryBuilder(found);
   }
 
   findOne(query: Record<string, any>) {
-    const found = Object.values(this._collection).find((doc) => {
-      return Object.entries(query).every(([key, condition]) => {
-        return this._evaluateCondition(doc[key], condition);
-      });
-    });
+    const found = this._findOneByQuery(query);
     return this._createQueryBuilder(found);
   }
+
+  async findByIdAndUpdate(
+    id: string,
+    data: any,
+    options?: Record<string, any>
+  ) {
+    if (!isValidMockObjectId(id))
+      throw new Error('CastError: Invalid ObjectId');
+    const found = this._collection[id];
+    if (!found) return this._createQueryBuilder(null);
+    const updated = { ...found, ...data };
+    this._collection[id] = updated;
+    await this._sync();
+    return options?.new === true
+      ? this._createQueryBuilder(updated)
+      : this._createQueryBuilder(found);
+  }
+
+  async findOneAndUpdate(
+    query: Record<string, any>,
+    data: any,
+    options?: Record<string, any>
+  ) {
+    const found = this._findOneByQuery(query);
+    if (!found) return this._createQueryBuilder(null);
+    const updated = { ...found, ...data };
+    this._collection[found._id] = updated;
+    await this._sync();
+    return options?.new === true
+      ? this._createQueryBuilder(updated)
+      : this._createQueryBuilder(found);
+  }
+
+  private _findOneByQuery = (query: Record<string, any>) =>
+    Object.values(this._collection).find((doc) =>
+      Object.entries(query).every(([key, condition]) =>
+        this._evaluateCondition(doc[key], condition)
+      )
+    );
+
+  private _findAllByQuery = (query: Record<string, any>) =>
+    Object.values(this._collection).filter((doc) =>
+      Object.entries(query).every(([key, condition]) =>
+        this._evaluateCondition(doc[key], condition)
+      )
+    );
 
   private _evaluateCondition(docValue: any, condition: any): boolean {
     // Helper: If docValue is an array, does ANY element match?
