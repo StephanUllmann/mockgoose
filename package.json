@@ -1,6 +1,6 @@
 {
   "name": "@ullmann/mockgoose",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A mock of the Mongoose API",
   "license": "MIT",
   "type": "module",
