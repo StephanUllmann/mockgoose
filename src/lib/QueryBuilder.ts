@@ -69,8 +69,9 @@ export default class QueryBuilder {
     let result = this.data;
 
     if (Array.isArray(result)) {
-      const end = this._limit ? this._skip + this._limit : undefined;
-      result = result.slice(this._skip, end);
+      const start = Number.isNaN(this._skip) ? 0 : this._skip;
+      const end = this._limit ? start + this._limit : undefined;
+      result = result.slice(start, end);
     }
 
     if (!this._isLean && this.documentFactory) {

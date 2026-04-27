@@ -53,7 +53,8 @@ export default class Model<TSchema extends Schema> {
   }
 
   find(query?: Record<string, any>): QueryBuilder {
-    if (!query) return this._createQueryBuilder(this._collection);
+    if (!query)
+      return this._createQueryBuilder(Object.values(this._collection));
     const found = this._findAllByQuery(query);
     return this._createQueryBuilder(found);
   }
