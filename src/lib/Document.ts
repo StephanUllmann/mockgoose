@@ -36,6 +36,10 @@ export default class Document {
     return this._data;
   }
 
+  toObject(): Record<string, any> {
+    return this._data;
+  }
+
   [util.inspect.custom](): string {
     return JSON.stringify(this._data, null, 2);
   }

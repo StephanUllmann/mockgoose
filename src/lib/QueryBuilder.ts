@@ -72,7 +72,6 @@ export default class QueryBuilder {
   private _getResolvedData() {
     if (this.data === null || this.data === undefined) return null;
 
-    // Create a shallow copy so we don't mutate the original data array unexpectedly
     let result = Array.isArray(this.data) ? [...this.data] : this.data;
 
     if (Array.isArray(result)) {
@@ -144,6 +143,10 @@ export default class QueryBuilder {
     return executePromise
       .then(() => this._getResolvedData())
       .then(onfulfilled, onrejected);
+  }
+
+  toObject(): Record<string, any> {
+    return this.data;
   }
 
   [util.inspect.custom](): string {

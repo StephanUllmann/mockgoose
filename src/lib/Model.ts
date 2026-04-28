@@ -103,6 +103,7 @@ export default class Model<TSchema extends Schema> {
     data: any,
     options?: Record<string, any>
   ): QueryBuilder {
+    if ('$set' in data) data = data['$set'];
     const found = this._findOneByQuery(query);
     if (!found) return this._createQueryBuilder(null);
     const updated = { ...found, ...data };
