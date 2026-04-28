@@ -1,6 +1,5 @@
 import { afterAll, beforeAll } from 'vitest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { rm } from 'fs/promises';
 import mongoose from 'mongoose';
 import mockgoose from '../src/index';
 
