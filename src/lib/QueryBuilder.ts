@@ -7,6 +7,7 @@ export default class QueryBuilder {
   private _limit?: number;
   private _skip: number = 0;
   private _isLean: boolean = false;
+  private _sort: Record<string, 1 | -1>;
 
   constructor(
     private data: Record<string, any> | Record<string, any>[] | null,
@@ -63,12 +64,41 @@ export default class QueryBuilder {
     return this;
   }
 
+  sort(arg?: Record<string, 1 | -1>): this {
+    this._sort = arg;
+    return this;
+  }
+
   private _getResolvedData() {
     if (this.data === null || this.data === undefined) return null;
 
-    let result = this.data;
+    // Create a shallow copy so we don't mutate the original data array unexpectedly
+    let result = Array.isArray(this.data) ? [...this.data] : this.data;
 
     if (Array.isArray(result)) {
+      // Sorting
+      if (this._sort !== undefined && Object.keys(this._sort).length > 0) {
+        const sortEntries = Object.entries(this._sort);
+
+        result.sort((a, b) => {
+          for (const [key, direction] of sortEntries) {
+            let valA = a[key];
+            let valB = b[key];
+
+            if (valB == null) return 1 * direction;
+
+            if (valA instanceof Date) valA = valA.getTime();
+            if (valB instanceof Date) valB = valB.getTime();
+
+            if (valA < valB) return -1 * direction;
+            if (valA > valB) return 1 * direction;
+          }
+
+          return 0;
+        });
+      }
+
+      // Pagination
       const parsedSkip = parseInt(this._skip as any, 10);
       const start = Number.isNaN(parsedSkip) ? 0 : Math.max(0, parsedSkip);
 
@@ -84,6 +114,7 @@ export default class QueryBuilder {
       result = result.slice(start, end);
     }
 
+    // Lean
     if (!this._isLean && this.documentFactory) {
       if (Array.isArray(result)) {
         result = result.map((item) => this.documentFactory!(item));
