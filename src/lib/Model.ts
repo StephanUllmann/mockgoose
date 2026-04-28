@@ -1,8 +1,9 @@
 import { DBState } from '../types/index.js';
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { generateObjectId, isValidMockObjectId } from './utils/mockObjectId.js';
 import QueryBuilder from './QueryBuilder.js';
 import Document from './Document.js';
+import { Mongoose } from 'mongoose';
 
 type InferSchemaType<S extends Schema> = S extends Schema<infer T> ? T : never;
 
@@ -143,7 +144,9 @@ export default class Model<TSchema extends Schema> {
     return this._createQueryBuilder(found, onExecute);
   }
 
-  async deleteMany(query: Record<string, any>): Promise<{ deletedCount: number }> {
+  async deleteMany(
+    query: Record<string, any>
+  ): Promise<{ deletedCount: number }> {
     if (!query || Object.keys(query).length === 0) {
       const deletedCount = Object.keys(this._collection).length;
       for (const key in this._collection) {
