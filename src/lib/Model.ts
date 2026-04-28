@@ -143,6 +143,23 @@ export default class Model<TSchema extends Schema> {
     return this._createQueryBuilder(found, onExecute);
   }
 
+  async deleteMany(query: Record<string, any>): Promise<{ deletedCount: number }> {
+    if (!query || Object.keys(query).length === 0) {
+      const deletedCount = Object.keys(this._collection).length;
+      for (const key in this._collection) {
+        delete this._collection[key];
+      }
+      await this._sync();
+      return { deletedCount };
+    }
+    const found = this._findAllByQuery(query);
+    found.forEach((doc) => {
+      delete this._collection[doc._id];
+    });
+    await this._sync();
+    return { deletedCount: found.length };
+  }
+
   private _findOneByQuery = (query: Record<string, any>) =>
     Object.values(this._collection).find((doc) =>
       Object.entries(query).every(([key, condition]) =>
