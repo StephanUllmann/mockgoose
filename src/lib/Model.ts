@@ -45,6 +45,18 @@ export default class Model<TSchema extends Schema> {
     return this._createDocument(toSave);
   }
 
+  async insertMany(newDocs: InferSchemaType<TSchema>[]): Promise<Document[]> {
+    const out: Document[] = [];
+    for (const newDoc of newDocs) {
+      const _id = generateObjectId();
+      const toSave = { _id, ...newDoc };
+      this._collection[_id] = toSave;
+      out.push(this._createDocument(toSave));
+    }
+    await this._sync();
+    return out;
+  }
+
   findById(id: string): QueryBuilder {
     if (!isValidMockObjectId(id))
       throw new Error('CastError: Invalid ObjectId');

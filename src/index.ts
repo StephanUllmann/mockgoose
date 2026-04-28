@@ -1,4 +1,4 @@
-import { access, mkdir, readFile, readdir } from 'fs/promises';
+import { access, mkdir, readFile, readdir, rm } from 'fs/promises';
 import type mongoose from 'mongoose';
 import { DBState, MockgooseModel } from './types/index.js';
 import Model from './lib/Model.js';
@@ -11,6 +11,13 @@ let dbState: DBState = {};
 
 const cwd = process.cwd();
 const dirpath = path.join(cwd, '.mockgoose');
+
+let connection = {
+  name: `Mock DB`,
+  async dropDatabase() {
+    rm(dirpath, { force: true, recursive: true });
+  },
+};
 
 async function connect(
   uri: string,
@@ -33,8 +40,12 @@ async function connect(
     dbState = {};
   }
 
+  if (options?.dbName) {
+    connection.name = options.dbName + ' Mock DB';
+  }
+
   return {
-    connection: { name: `${options?.dbName || ''} Mock DB` },
+    connection,
   } as mongoose.Mongoose;
 }
 
@@ -73,5 +84,5 @@ function model(name: string, schema?: any): MockgooseModel {
   }) as unknown as MockgooseModel;
 }
 
-export { connect, Model, model, Schema };
-export default { connect, Model, model, Schema };
+export { connect, connection, Model, model, Schema };
+export default { connect, connection, Model, model, Schema };

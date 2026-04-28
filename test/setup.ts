@@ -19,5 +19,5 @@ afterAll(async () => {
     await mongoose.connection.close();
     await mongod.stop();
   }
-  await rm('.mockgoose', { force: true, recursive: true });
+  await mockgoose.connection.dropDatabase();
 });
