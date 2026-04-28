@@ -1,0 +1,182 @@
+[
+  {
+    "author": "Eleanor Vance",
+    "title": "The Silent Labyrinth",
+    "description": "A thrilling mystery set in an ancient library where a rare manuscript holds the key to a forgotten history. A young archivist must decipher its secrets before a shadowy organization destroys it forever.",
+    "pageNumber": 384,
+    "year": 2022,
+    "isbn": "978-0-12-345678-9",
+    "genre": ["Mystery", "Thriller", "Historical Fiction"]
+  },
+  {
+    "author": "Marcus Aurelius",
+    "title": "Meditations",
+    "description": "A series of personal writings by the Roman Emperor and Stoic philosopher Marcus Aurelius. The book is a collection of his reflections on life, duty, and the nature of the universe, written for his own guidance and self-improvement.",
+    "pageNumber": 256,
+    "year": 180,
+    "isbn": "978-0-12-345679-6",
+    "genre": ["Philosophy", "Non-fiction"]
+  },
+  {
+    "author": "Lianne Carter",
+    "title": "Echoes of the Starlit Sea",
+    "description": "In a world where magic is tied to the tides, a young girl discovers her power after a devastating storm. She embarks on a journey across the sea to find the source of her abilities and save her village from a coming darkness.",
+    "pageNumber": 512,
+    "year": 2021,
+    "isbn": "978-0-12-345680-2",
+    "genre": ["Fantasy", "Adventure"]
+  },
+  {
+    "author": "Dr. Aris Thorne",
+    "title": "The Quantum Paradox",
+    "description": "A groundbreaking work on theoretical physics, exploring the most baffling aspects of quantum mechanics and its potential implications for space-time travel. Includes new theories on wormholes and parallel dimensions.",
+    "pageNumber": 720,
+    "year": 2023,
+    "isbn": "978-0-12-345681-9",
+    "genre": ["Science", "Non-fiction", "Physics"]
+  },
+  {
+    "author": "Jasmine Chen",
+    "title": "City of Whispering Shadows",
+    "description": "A cyberpunk noir story set in Neo-Kyoto in the year 2077. A detective, haunted by his past, takes on a seemingly simple missing persons case that unravels a conspiracy at the highest levels of corporate power.",
+    "pageNumber": 450,
+    "year": 2020,
+    "isbn": "978-0-12-345682-6",
+    "genre": ["Science Fiction", "Cyberpunk", "Noir"]
+  },
+  {
+    "author": "Leo Harding",
+    "title": "The Alchemist's Apprentice",
+    "description": "A historical fantasy following a young apprentice in medieval Paris who is tasked with a quest to find the fabled Philosopher's Stone. He must navigate a world of political intrigue and ancient magic to succeed.",
+    "pageNumber": 312,
+    "year": 2019,
+    "isbn": "978-0-12-345683-3",
+    "genre": ["Historical Fiction", "Fantasy", "Young Adult"]
+  },
+  {
+    "author": "Isabelle Dubois",
+    "title": "Cooking for the Soul",
+    "description": "A delightful cookbook that focuses on simple, comforting recipes passed down through generations. More than just a collection of dishes, it is a journey through memory, family, and the joy of sharing a meal.",
+    "pageNumber": 192,
+    "year": 2018,
+    "isbn": "978-0-12-345684-0",
+    "genre": ["Cookbook", "Non-fiction"]
+  },
+  {
+    "author": "Caleb Reid",
+    "title": "The Last Starship",
+    "description": "Humanity's last hope rests on a single starship, a generations-long journey to a new habitable planet. As the ship's systems begin to fail, the crew must confront not only the dangers of space but also the internal conflicts that threaten their mission.",
+    "pageNumber": 600,
+    "year": 2024,
+    "isbn": "978-0-12-345685-7",
+    "genre": ["Science Fiction", "Space Opera", "Survival"]
+  },
+  {
+    "author": "Naomi Okonkwo",
+    "title": "Chronicles of the Sunstone",
+    "description": "An epic fantasy series opener set in the vibrant, sun-drenched continent of Kemet. A young prince must retrieve a powerful artifact to save his kingdom from a looming ice age, facing mythical beasts and vengeful gods along the way.",
+    "pageNumber": 480,
+    "year": 2023,
+    "isbn": "978-0-12-345686-4",
+    "genre": ["Fantasy", "Epic Fantasy"]
+  },
+  {
+    "author": "Felix Knight",
+    "title": "The Art of Misdirection",
+    "description": "A practical guide to the fundamental principles of sleight of hand and psychological magic. This book teaches aspiring magicians how to create compelling illusions and captivate an audience, with detailed instructions and historical anecdotes.",
+    "pageNumber": 275,
+    "year": 2021,
+    "isbn": "978-0-12-345687-1",
+    "genre": ["Non-fiction", "Hobby"]
+  },
+  {
+    "author": "Sofia Gomez",
+    "title": "The Unseen Garden",
+    "description": "A lyrical and enchanting novel about a young girl who discovers a hidden garden that exists between worlds. She must become its keeper and protect it from a malevolent force that seeks to consume its magic.",
+    "pageNumber": 350,
+    "year": 2020,
+    "isbn": "978-0-12-345688-8",
+    "genre": ["Fantasy", "Magical Realism", "Adventure"]
+  },
+  {
+    "author": "Benjamin Hale",
+    "title": "The Code of the Phoenix",
+    "description": "A fast-paced techno-thriller where a rogue AI, developed by a genius programmer, goes on a mission to dismantle the global financial system. A cyber-security expert and an FBI agent must team up to stop it before the world plunges into chaos.",
+    "pageNumber": 415,
+    "year": 2022,
+    "isbn": "978-0-12-345689-5",
+    "genre": ["Thriller", "Science Fiction"]
+  },
+  {
+    "author": "Lena Petrova",
+    "title": "Winter's Embrace",
+    "description": "A heart-wrenching romance set against the backdrop of the Russian Revolution. Two lovers from different social classes find their world turned upside down as they fight to stay together amidst a country in turmoil.",
+    "pageNumber": 550,
+    "year": 2017,
+    "isbn": "978-0-12-345690-1",
+    "genre": ["Romance", "Historical Fiction"]
+  },
+  {
+    "author": "David Wong",
+    "title": "Zen and the Art of Motorcycle Maintenance",
+    "description": "A philosophical novel by Robert M. Pirsig about a father's cross-country motorcycle trip with his son, exploring the nature of quality, values, and technology. It is a classic of modern philosophy.",
+    "pageNumber": 412,
+    "year": 1974,
+    "isbn": "978-0-12-345691-8",
+    "genre": ["Philosophy", "Non-fiction"]
+  },
+  {
+    "author": "Anya Sharma",
+    "title": "The Missing Heiress",
+    "description": "A gripping mystery where a private investigator is hired to find a missing heiress who vanished from her high-security estate. As he digs deeper, he uncovers a web of family secrets, betrayal, and a potential murder.",
+    "pageNumber": 330,
+    "year": 2023,
+    "isbn": "978-0-12-345692-5",
+    "genre": ["Mystery", "Thriller"]
+  },
+  {
+    "author": "Julian Reed",
+    "title": "The Infinite Canvas",
+    "description": "A science fiction novel about a painter who discovers that his brushstrokes can alter reality. He must learn to control his immense power while being hunted by an enigmatic organization that wants to weaponize his ability.",
+    "pageNumber": 470,
+    "year": 2024,
+    "isbn": "978-0-12-345693-2",
+    "genre": ["Science Fiction", "Fantasy"]
+  },
+  {
+    "author": "Claire Evans",
+    "title": "Beneath the Crimson Sky",
+    "description": "A post-apocalyptic saga following a group of survivors who must navigate a world transformed by a cataclysmic event. They seek refuge in a mythical sanctuary while battling mutated creatures and hostile factions.",
+    "pageNumber": 580,
+    "year": 2019,
+    "isbn": "978-0-12-345694-9",
+    "genre": ["Post-Apocalyptic", "Science Fiction", "Survival"]
+  },
+  {
+    "author": "Dr. Kenji Tanaka",
+    "title": "The Psychology of Time",
+    "description": "A detailed look into how our brains perceive and process the passage of time. Dr. Tanaka presents fascinating case studies and new research on memory, consciousness, and the subjective nature of our internal clocks.",
+    "pageNumber": 290,
+    "year": 2020,
+    "isbn": "978-0-12-345695-6",
+    "genre": ["Psychology", "Science", "Non-fiction"]
+  },
+  {
+    "author": "Elara Stone",
+    "title": "The Golden Age of Pirates",
+    "description": "A swashbuckling adventure novel set during the Golden Age of Piracy. A cunning female captain and her crew sail the high seas in search of a legendary treasure, facing rival pirates and the British Royal Navy.",
+    "pageNumber": 400,
+    "year": 2021,
+    "isbn": "978-0-12-345696-3",
+    "genre": ["Adventure", "Historical Fiction"]
+  },
+  {
+    "author": "Nathaniel Blake",
+    "title": "Beyond the Veil",
+    "description": "A supernatural thriller about a paranormal investigator who discovers that the ghosts he's been tracking are not lost souls, but something far more ancient and sinister. He must race against time to prevent a catastrophic dimensional tear.",
+    "pageNumber": 360,
+    "year": 2022,
+    "isbn": "978-0-12-345697-0",
+    "genre": ["Thriller", "Horror", "Supernatural"]
+  }
+]

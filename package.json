@@ -12,12 +12,15 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "vitest"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
+    "mongodb-memory-server": "^11.0.1",
     "mongoose": "^9.0.0",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.0",
+    "vitest": "^4.1.5"
   },
   "peerDependencies": {
     "mongoose": ">=6"
