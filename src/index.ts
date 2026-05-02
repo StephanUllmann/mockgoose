@@ -19,6 +19,14 @@ let connection = {
   },
 };
 
+/**
+ * Establishes a connection to the mock database.
+ * 
+ * @param uri - The connection string (required).
+ * @param options - Mongoose-like connection options.
+ * @returns A promise that resolves to a mock Mongoose instance.
+ * @throws {Error} If uri is missing.
+ */
 async function connect(
   uri: string,
   options?: mongoose.ConnectOptions | undefined
@@ -49,6 +57,13 @@ async function connect(
   } as mongoose.Mongoose;
 }
 
+/**
+ * Returns a MockgooseModel for the given name and schema.
+ * 
+ * @param name - The name of the model.
+ * @param schema - The schema definition (optional).
+ * @returns A MockgooseModel instance.
+ */
 function model(name: string, schema?: any): MockgooseModel {
   let collection: Record<string, any>;
 

@@ -7,6 +7,9 @@ import { Mongoose } from 'mongoose';
 
 type InferSchemaType<S extends Schema> = S extends Schema<infer T> ? T : never;
 
+/**
+ * Represents a model in the mock database.
+ */
 export default class Model<TSchema extends Schema> {
   [key: string]: any;
   modelName!: string;
@@ -38,6 +41,12 @@ export default class Model<TSchema extends Schema> {
     );
   };
 
+  /**
+   * Creates a new document and saves it to the mock collection.
+   *
+   * @param newDoc - The document data to save.
+   * @returns A promise that resolves to the created document.
+   */
   async create(newDoc: InferSchemaType<TSchema>): Promise<Document> {
     const _id = generateObjectId();
     const toSave = { _id, ...newDoc };
@@ -46,6 +55,12 @@ export default class Model<TSchema extends Schema> {
     return this._createDocument(toSave);
   }
 
+  /**
+   * Inserts multiple documents into the mock collection.
+   *
+   * @param newDocs - The array of document data to save.
+   * @returns A promise that resolves to an array of created documents.
+   */
   async insertMany(newDocs: InferSchemaType<TSchema>[]): Promise<Document[]> {
     const out: Document[] = [];
     for (const newDoc of newDocs) {
@@ -58,6 +73,13 @@ export default class Model<TSchema extends Schema> {
     return out;
   }
 
+  /**
+   * Finds a document by its ID.
+   *
+   * @param id - The ID of the document.
+   * @returns A QueryBuilder for the document.
+   * @throws {Error} If the ID is invalid.
+   */
   findById(id: string): QueryBuilder {
     if (!isValidMockObjectId(id))
       throw new Error('CastError: Invalid ObjectId');
@@ -65,6 +87,12 @@ export default class Model<TSchema extends Schema> {
     return this._createQueryBuilder(docData);
   }
 
+  /**
+   * Finds documents that match the given query.
+   *
+   * @param query - The search query.
+   * @returns A QueryBuilder for the matching documents.
+   */
   find(query?: Record<string, any>): QueryBuilder {
     if (!query)
       return this._createQueryBuilder(Object.values(this._collection));
@@ -72,11 +100,26 @@ export default class Model<TSchema extends Schema> {
     return this._createQueryBuilder(found);
   }
 
+  /**
+   * Finds a single document that matches the given query.
+   *
+   * @param query - The search query.
+   * @returns A QueryBuilder for the matching document.
+   */
   findOne(query: Record<string, any>): QueryBuilder {
     const found = this._findOneByQuery(query);
     return this._createQueryBuilder(found);
   }
 
+  /**
+   * Finds a document by its ID and updates it.
+   *
+   * @param id - The ID of the document.
+   * @param data - The update data.
+   * @param options - Mongoose-like options (e.g., `{ new: true }`).
+   * @returns A QueryBuilder for the document.
+   * @throws {Error} If the ID is invalid.
+   */
   findByIdAndUpdate(
     id: string,
     data: any,
@@ -93,11 +136,23 @@ export default class Model<TSchema extends Schema> {
         await this._sync();
       }
     };
-    return options?.new === true
+
+    const returnNew =
+      options?.new === true || options?.returnDocument === 'after';
+
+    return returnNew
       ? this._createQueryBuilder(updated, onExecute)
       : this._createQueryBuilder(found, onExecute);
   }
 
+  /**
+   * Finds a document by query and updates it.
+   *
+   * @param query - The search query.
+   * @param data - The update data.
+   * @param options - Mongoose-like options (e.g., `{ new: true }`).
+   * @returns A QueryBuilder for the document.
+   */
   findOneAndUpdate(
     query: Record<string, any>,
     data: any,
@@ -113,11 +168,21 @@ export default class Model<TSchema extends Schema> {
         await this._sync();
       }
     };
-    return options?.new === true
+    const returnNew =
+      options?.new === true || options?.returnDocument === 'after';
+    return returnNew
       ? this._createQueryBuilder(updated, onExecute)
       : this._createQueryBuilder(found, onExecute);
   }
 
+  /**
+   * Finds a document by its ID and deletes it.
+   *
+   * @param id - The ID of the document.
+   * @param _options - Additional options.
+   * @returns A QueryBuilder for the deleted document.
+   * @throws {Error} If the ID is invalid.
+   */
   findByIdAndDelete(id: string, _options?: Record<string, any>): QueryBuilder {
     if (!isValidMockObjectId(id))
       throw new Error('CastError: Invalid ObjectId');
@@ -131,6 +196,13 @@ export default class Model<TSchema extends Schema> {
     return this._createQueryBuilder(found, onExecute);
   }
 
+  /**
+   * Finds a document by query and deletes it.
+   *
+   * @param query - The search query.
+   * @param _options - Additional options.
+   * @returns A QueryBuilder for the deleted document.
+   */
   findOneAndDelete(
     query: Record<string, any>,
     _options?: Record<string, any>
@@ -145,6 +217,12 @@ export default class Model<TSchema extends Schema> {
     return this._createQueryBuilder(found, onExecute);
   }
 
+  /**
+   * Deletes all documents that match the given query.
+   *
+   * @param query - The search query.
+   * @returns A promise that resolves to an object containing the deleted count.
+   */
   async deleteMany(
     query: Record<string, any>
   ): Promise<{ deletedCount: number }> {

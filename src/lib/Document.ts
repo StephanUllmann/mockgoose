@@ -1,6 +1,9 @@
 import util from 'util';
 import { DBState } from '../types/index.js';
 
+/**
+ * Represents a document in the mock database.
+ */
 export default class Document {
   [key: string]: any;
 
@@ -27,15 +30,30 @@ export default class Document {
     });
   }
 
+  /**
+   * Saves the current state of the document to the mock database.
+   * 
+   * @returns A promise that resolves to the document.
+   */
   async save(): Promise<this> {
     await this._sync();
     return this;
   }
 
+  /**
+   * Converts the document to a plain JSON object.
+   * 
+   * @returns The document data as a JSON object.
+   */
   toJSON(): Record<string, any> {
     return this._data;
   }
 
+  /**
+   * Converts the document to a plain object.
+   * 
+   * @returns The document data as a plain object.
+   */
   toObject(): Record<string, any> {
     return this._data;
   }

@@ -20,6 +20,9 @@ import type {
 } from 'mongoose';
 import { generateObjectId } from './utils/mockObjectId.js';
 
+/**
+ * Represents a schema for a Mockgoose model.
+ */
 export default class Schema<
   RawDocType = any,
   TModelType = Model<RawDocType, any, any, any>,

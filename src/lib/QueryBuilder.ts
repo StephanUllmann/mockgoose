@@ -3,6 +3,9 @@ import util from 'util';
 
 type ExecuteCallback = () => void | Promise<void>;
 
+/**
+ * QueryBuilder class for building and executing queries on mock data.
+ */
 export default class QueryBuilder {
   private _limit?: number;
   private _skip: number = 0;
@@ -17,6 +20,12 @@ export default class QueryBuilder {
     private onExecute?: ExecuteCallback
   ) {}
 
+  /**
+   * Populates a referenced field in the document.
+   * 
+   * @param path - The field path to populate.
+   * @returns The QueryBuilder instance.
+   */
   populate(path: string): this {
     const [field, _query] = path.split(' ');
 
@@ -49,21 +58,44 @@ export default class QueryBuilder {
     return this;
   }
 
+  /**
+   * Sets the lean option for the query.
+   * 
+   * @returns The QueryBuilder instance.
+   */
   lean(): this {
     this._isLean = true;
     return this;
   }
 
+  /**
+   * Sets the skip option for the query.
+   * 
+   * @param val - The number of documents to skip.
+   * @returns The QueryBuilder instance.
+   */
   skip(val: number): this {
     this._skip = val;
     return this;
   }
 
+  /**
+   * Sets the limit option for the query.
+   * 
+   * @param val - The maximum number of documents to return.
+   * @returns The QueryBuilder instance.
+   */
   limit(val: number): this {
     this._limit = val;
     return this;
   }
 
+  /**
+   * Sets the sort option for the query.
+   * 
+   * @param arg - An object specifying the fields to sort by and the sort order (1 for ascending, -1 for descending).
+   * @returns The QueryBuilder instance.
+   */
   sort(arg?: Record<string, 1 | -1>): this {
     this._sort = arg;
     return this;
@@ -125,6 +157,11 @@ export default class QueryBuilder {
     return result;
   }
 
+  /**
+   * Executes the query and returns the results.
+   * 
+   * @returns A promise that resolves to the query results.
+   */
   async exec(): Promise<Record<string, any> | Record<string, any>[]> {
     if (this.onExecute) {
       await this.onExecute();
@@ -132,6 +169,9 @@ export default class QueryBuilder {
     return this._getResolvedData();
   }
 
+  /**
+   * Implementation of the thenable interface for the QueryBuilder.
+   */
   then(
     onfulfilled?: ((value: any) => any) | null,
     onrejected?: ((reason: any) => any) | null
@@ -145,6 +185,11 @@ export default class QueryBuilder {
       .then(onfulfilled, onrejected);
   }
 
+  /**
+   * Returns the query data as a plain object.
+   * 
+   * @returns The query data.
+   */
   toObject(): Record<string, any> {
     return this.data;
   }
